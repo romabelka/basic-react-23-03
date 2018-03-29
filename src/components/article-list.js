@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {findDOMNode} from 'react-dom'
 import Article from './article'
 import accordion from '../decorators/accordion'
 
@@ -18,9 +19,14 @@ class ArticleList extends Component {
                 <Article article = {article}
                          isOpen = {article.id === openItemId}
                          toggleOpen = {toggleItem(article.id)}
+                         ref = {this.setListElementRef}
                 />
             </li>
         ))
+    }
+
+    setListElementRef = listElement => {
+        console.log('---', listElement, findDOMNode(listElement))
     }
 }
 
