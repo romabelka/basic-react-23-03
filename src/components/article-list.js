@@ -18,7 +18,7 @@ class ArticleList extends Component {
             <li key = {article.id}>
                 <Article article = {article}
                          isOpen = {article.id === openItemId}
-                         toggleOpen = {toggleItem(article.id)}
+                         toggleOpen = {toggleItem}
                          ref = {this.setListElementRef}
                 />
             </li>
