@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 //import {findDOMNode} from 'react-dom'
-import Article from './article'
-import accordion from '../decorators/accordion'
+import Article from '../article'
+import accordion from '../../decorators/accordion'
 
-class ArticleList extends Component {
+export class ArticleList extends Component {
+    componentDidMount() {
+        const { fetchData } = this.props
+        if (fetchData) fetchData()
+    }
+
     render() {
         return (
             <ul>
@@ -15,7 +20,7 @@ class ArticleList extends Component {
     getArticles() {
         const { articles, openItemId, toggleItem } = this.props
         return articles.map(article => (
-            <li key = {article.id}>
+            <li key = {article.id} className = "test--article-list__item">
                 <Article article = {article}
                          isOpen = {article.id === openItemId}
                          toggleOpen = {toggleItem}

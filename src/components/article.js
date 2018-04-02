@@ -16,7 +16,11 @@ class Article extends PureComponent {
         return (
             <div>
                 <h2>{article.title}</h2>
-                <button onClick = {() => toggleOpen(article.id)}>{isOpen ? 'close' : 'open'}</button>
+                <button className = "test--article__btn"
+                        onClick = {() => toggleOpen(article.id)}
+                >
+                    {isOpen ? 'close' : 'open'}
+                </button>
                 {this.getBody()}
             </div>
         )
@@ -28,7 +32,7 @@ class Article extends PureComponent {
         if (!isOpen) return null
 
         return (
-            <section>
+            <section className = "test--article__body">
                 {article.text}
                 <CommentList comments={article.comments}/>
             </section>
