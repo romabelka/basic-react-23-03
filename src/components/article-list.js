@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {findDOMNode} from 'react-dom'
+//import {findDOMNode} from 'react-dom'
 import Article from './article'
 import accordion from '../decorators/accordion'
 
@@ -25,8 +25,8 @@ class ArticleList extends Component {
         ))
     }
 
-    setListElementRef = listElement => {
-        console.log('---', listElement, findDOMNode(listElement))
+    setListElementRef = _ => {
+        //console.log('---', listElement, findDOMNode(listElement))
     }
 }
 

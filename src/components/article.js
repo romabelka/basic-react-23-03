@@ -2,9 +2,17 @@ import React, { PureComponent } from 'react'
 import CommentList from './comment-list'
 
 class Article extends PureComponent {
+    state = {
+        error: null
+    }
+
+    componentDidCatch(error) {
+        console.log('---', 'some error', error)
+        this.setState({ error })
+    }
+
     render() {
         const { article, isOpen, toggleOpen } = this.props
-        console.log('---', 'rendering article')
         return (
             <div>
                 <h2>{article.title}</h2>
@@ -16,6 +24,7 @@ class Article extends PureComponent {
 
     getBody() {
         const { article, isOpen } = this.props
+        if (this.state.error) return <h2>Some error</h2>
         if (!isOpen) return null
 
         return (
