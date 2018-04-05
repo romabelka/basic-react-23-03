@@ -30,6 +30,7 @@ class Article extends PureComponent {
                     transitionLeaveTimeout = {300}
                     transitionAppearTimeout = {1000}
                     transitionAppear
+                    component = 'div'
                 >
                     {this.getBody()}
                 </CSSTransition>
