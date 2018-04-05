@@ -29,4 +29,15 @@ describe('ArticleList', () => {
 
         expect(fetched).toEqual(true)
     });
+
+    it('should close an article', () => {
+        const wrapper = mount(<DecoratedArticleList articles = {articles}/>)
+        expect(wrapper.find('.test--article__body').length).toEqual(0)
+
+        wrapper.find('.test--article__btn').at(0).simulate('click')
+        expect(wrapper.find('.test--article__body').length).toEqual(1)
+
+        wrapper.find('.test--article__btn').at(0).simulate('click')
+        expect(wrapper.find('.test--article__body').length).toEqual(0)
+    });
 });

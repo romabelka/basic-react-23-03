@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
@@ -49,5 +50,15 @@ class Article extends PureComponent {
         )
     }
 }
+
+Article.propTypes = {
+    isOpen: PropTypes.bool,
+    article: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        text: PropTypes.string
+    }).isRequired,
+    toggleOpen: PropTypes.func
+}
+
 
 export default Article
