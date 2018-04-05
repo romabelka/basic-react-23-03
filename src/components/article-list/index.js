@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 //import {findDOMNode} from 'react-dom'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
@@ -44,4 +45,6 @@ export class ArticleList extends Component {
     }
 }
 
-export default accordion(ArticleList)
+export default connect(state => ({
+    articles: state.articles
+}))(accordion(ArticleList))
