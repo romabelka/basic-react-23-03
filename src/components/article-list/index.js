@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 //import {findDOMNode} from 'react-dom'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
+import {filtratedArticles} from '../../selectors'
 
 export class ArticleList extends Component {
     static propTypes = {
@@ -20,6 +21,7 @@ export class ArticleList extends Component {
     }
 
     render() {
+        console.log('---', 'rendering list')
         return (
             <ul>
                 {this.getArticles()}
@@ -46,14 +48,8 @@ export class ArticleList extends Component {
 }
 
 export default connect(state => {
-    const {selected, dateRange: {from, to}} = state.filters
-
-    const filtratedArticles = state.articles.filter(article => {
-        const published = Date.parse(article.date)
-        return (!selected.length || selected.includes(article.id)) &&
-            (!from || !to || (published > from && published < to))
-    })
+    console.log('---', 'connect')
     return {
-        articles: filtratedArticles
+        articles: filtratedArticles(state)
     }
 })(accordion(ArticleList))
