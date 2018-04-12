@@ -1,6 +1,5 @@
-import { Map, Record, fromJS, List } from 'immutable'
-import { DELETE_ARTICLE, ADD_COMMENT } from '../constants'
-import { normalizedArticles as defaultArticles } from '../fixtures'
+import { Record } from 'immutable'
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS } from '../constants'
 import { arrToMap } from './utils'
 
 const ArticleRecord = Record({
@@ -11,17 +10,32 @@ const ArticleRecord = Record({
     comments: []
 })
 
-export default (articles = arrToMap(defaultArticles, ArticleRecord), action) => {
-    const { type, payload, randomId } = action
+const ReducerRecord = Record({
+    entities: arrToMap([], ArticleRecord),
+    loading: false,
+    loaded: false
+})
+
+export default (state = ReducerRecord(), action) => {
+    const { type, payload, randomId, response } = action
 
     switch (type) {
         case DELETE_ARTICLE:
-            return articles.delete(payload.id)
+            return state.deleteIn(['entities', payload.id])
 
         case ADD_COMMENT:
-            return articles.updateIn([payload.articleId, 'comments'], (comments) => comments.concat(randomId))
+            return state.updateIn(['entities', payload.articleId, 'comments'], (comments) => comments.concat(randomId))
+
+        case LOAD_ALL_ARTICLES + START:
+            return state.set('loading', true)
+
+        case LOAD_ALL_ARTICLES + SUCCESS:
+            return state
+                .set('entities', arrToMap(response, ArticleRecord))
+                .set('loading', false)
+                .set('loaded', true)
 
         default:
-            return articles
+            return state
     }
 }

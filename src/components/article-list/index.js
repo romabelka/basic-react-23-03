@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 //import {findDOMNode} from 'react-dom'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
-import {filtratedArticles} from '../../selectors'
+import { filtratedArticles, articlesLoadingSelector } from '../../selectors'
+import { loadAllArticles } from '../../ac'
+import Loader from '../common/loader'
 
 export class ArticleList extends Component {
     static propTypes = {
@@ -21,7 +23,7 @@ export class ArticleList extends Component {
     }
 
     render() {
-        console.log('---', 'rendering list')
+        if (this.props.loading) return <Loader />
         return (
             <ul>
                 {this.getArticles()}
@@ -50,6 +52,7 @@ export class ArticleList extends Component {
 export default connect(state => {
     console.log('---', 'connect')
     return {
-        articles: filtratedArticles(state)
+        articles: filtratedArticles(state),
+        loading: articlesLoadingSelector(state)
     }
-})(accordion(ArticleList))
+}, { fetchData: loadAllArticles })(accordion(ArticleList))
