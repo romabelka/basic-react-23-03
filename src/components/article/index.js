@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
-import { deleteArticle } from '../../ac'
+import { deleteArticle, loadArticleById } from '../../ac'
+import Loader from '../common/loader'
 import './style.css'
 
 class Article extends PureComponent {
@@ -14,6 +15,10 @@ class Article extends PureComponent {
     componentDidCatch(error) {
         console.log('---', 'some error', error)
         this.setState({ error })
+    }
+
+    componentWillReceiveProps({ article, isOpen, loadArticleById }) {
+        if (!this.props.isOpen && isOpen && !article.text) loadArticleById(article.id)
     }
 
     render() {
@@ -51,6 +56,7 @@ class Article extends PureComponent {
         if (this.state.error) return <h2>Some error</h2>
         if (!isOpen) return null
 
+        if (article.loading) return <Loader />
         return (
             <section className = "test--article__body">
                 {article.text}
@@ -71,4 +77,4 @@ Article.propTypes = {
 }
 
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, { deleteArticle, loadArticleById })(Article)

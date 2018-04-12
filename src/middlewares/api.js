@@ -1,4 +1,4 @@
-import { START, SUCCESS, FAIL} from '../constants'
+import { START, SUCCESS, FAIL } from '../constants'
 
 export default store => next => action => {
     const { callAPI, type, ...rest } = action
@@ -6,6 +6,7 @@ export default store => next => action => {
 
     next({ ...rest, type: type + START })
 
+    //dev only!!!! remove in prod
     setTimeout(() => {
         fetch(callAPI)
             .then(res => res.json())
