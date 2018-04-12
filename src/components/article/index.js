@@ -54,7 +54,7 @@ class Article extends PureComponent {
         return (
             <section className = "test--article__body">
                 {article.text}
-                <CommentList comments={article.comments}/>
+                <CommentList article = {article}/>
             </section>
         )
     }
