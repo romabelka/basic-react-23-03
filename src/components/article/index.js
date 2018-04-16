@@ -5,6 +5,7 @@ import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticleById } from '../../ac'
 import Loader from '../common/loader'
+import { articleSelector } from '../../selectors'
 import './style.css'
 
 class Article extends PureComponent {
@@ -13,16 +14,18 @@ class Article extends PureComponent {
     }
 
     componentDidCatch(error) {
-        console.log('---', 'some error', error)
         this.setState({ error })
     }
 
-    componentWillReceiveProps({ article, isOpen, loadArticleById }) {
-        if (!this.props.isOpen && isOpen && !article.text) loadArticleById(article.id)
+    componentDidMount() {
+        const { article, loadArticleById, id } = this.props
+        if (!article || (!article.text && !article.loading)) loadArticleById(id)
     }
 
     render() {
         const { article, isOpen, toggleOpen } = this.props
+        if (!article) return null
+
         return (
             <div>
                 <h2>{article.title}</h2>
@@ -67,14 +70,18 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
+    id: PropTypes.string,
+
     isOpen: PropTypes.bool,
     article: PropTypes.shape({
-        title: PropTypes.string.isRequired,
+        title: PropTypes.string,
         text: PropTypes.string
-    }).isRequired,
+    }),
     toggleOpen: PropTypes.func,
     deleteArticle: PropTypes.func
 }
 
 
-export default connect(null, { deleteArticle, loadArticleById })(Article)
+export default connect((state, props) => ({
+    article: articleSelector(state, props)
+}), { deleteArticle, loadArticleById })(Article)

@@ -1,7 +1,7 @@
 import { Record } from 'immutable'
 import {
     DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS,
-    START, SUCCESS
+    START, SUCCESS, FAIL
 } from '../constants'
 import { arrToMap } from './utils'
 

@@ -23,3 +23,5 @@ export const filtratedArticles = createSelector(articleListSelector, filtersSele
 export const createCommentSelector = () => createSelector(commentMapSelector, idSelector, (comments, id) => {
     return comments.get(id)
 })
+
+export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))

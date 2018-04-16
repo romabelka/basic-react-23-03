@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-//import {findDOMNode} from 'react-dom'
-import Article from '../article'
+import { NavLink } from 'react-router-dom'
 import accordion from '../../decorators/accordion'
 import { filtratedArticles, articlesLoadingSelector } from '../../selectors'
 import { loadAllArticles } from '../../ac'
@@ -35,17 +34,9 @@ export class ArticleList extends Component {
         const { articles, openItemId, toggleItem } = this.props
         return articles.map(article => (
             <li key = {article.id} className = "test--article-list__item">
-                <Article article = {article}
-                         isOpen = {article.id === openItemId}
-                         toggleOpen = {toggleItem}
-                         ref = {this.setListElementRef}
-                />
+                <NavLink to = {`/articles/${article.id}`} activeStyle = {{ color: 'red' }}>{article.title}</NavLink>
             </li>
         ))
-    }
-
-    setListElementRef = _ => {
-        //console.log('---', listElement, findDOMNode(listElement))
     }
 }
 
