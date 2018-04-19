@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
@@ -8,7 +8,7 @@ import Loader from '../common/loader'
 import { articleSelector } from '../../selectors'
 import './style.css'
 
-class Article extends PureComponent {
+class Article extends Component {
     state = {
         error: null
     }
@@ -25,6 +25,7 @@ class Article extends PureComponent {
     render() {
         const { article, isOpen, toggleOpen } = this.props
         if (!article) return null
+        console.log('---', 3)
 
         return (
             <div>
@@ -84,4 +85,4 @@ Article.propTypes = {
 
 export default connect((state, props) => ({
     article: articleSelector(state, props)
-}), { deleteArticle, loadArticleById })(Article)
+}), { deleteArticle, loadArticleById }, null, { pure: false })(Article)

@@ -9,7 +9,7 @@ class ArticlesPage extends Component {
     }
 
     render() {
-        console.log('---', 'article list match', this.props.match)
+        console.log('---', 2)
         return (
             <Fragment>
                 <ArticleList />

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import { Route, Redirect, NavLink, Switch } from 'react-router-dom'
 import ArticleList from './components/routes/articles'
 import CommentsPage from './components/routes/comments-page'
@@ -8,7 +9,25 @@ import Counter from './components/counter'
 import Menu, { MenuItem } from './components/menu'
 
 class App extends Component {
+    static childContextTypes = {
+        username: PropTypes.string,
+        store: PropTypes.object
+    }
+
+    state = {
+        user: ''
+    }
+
+    getChildContext() {
+        return {
+            username: this.state.user
+        }
+    }
+
+    onUserChange = (user) => this.setState({ user })
+
     render() {
+        console.log('---', 1)
         return (
             <div className="App">
                 <Menu>
@@ -18,7 +37,7 @@ class App extends Component {
                     <MenuItem to = "/comments">comments</MenuItem>
                 </Menu>
 
-                <UserForm />
+                <UserForm value = {this.state.user} onChange = {this.onUserChange}/>
 
                 <Switch>
                     <Redirect exact from = "/" to = "/articles" />
