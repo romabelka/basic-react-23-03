@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import Comment from './comment'
