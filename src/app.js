@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Route, NavLink, Switch } from 'react-router-dom'
+import { Route, Redirect, NavLink, Switch } from 'react-router-dom'
 import ArticleList from './components/routes/articles'
 import CommentsPage from './components/routes/comments-page'
 import UserForm from './components/user-form'
@@ -19,6 +19,7 @@ class App extends Component {
                 <UserForm />
 
                 <Switch>
+                    <Redirect exact from = "/" to = "/articles" />
                     <Route path = "/counter" component = {Counter} exact />
                     <Route path = "/filters" component = {Filters}/>
                     <Route path = "/articles/new" render = {() => <h1>New article page</h1>} />
