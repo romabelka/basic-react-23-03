@@ -5,6 +5,7 @@ import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticleById } from '../../ac'
 import Loader from '../common/loader'
+import LocalizedText from '../common/localized-text'
 import { articleSelector } from '../../selectors'
 import './style.css'
 
@@ -33,9 +34,11 @@ class Article extends Component {
                 <button className = "test--article__btn"
                         onClick = {() => toggleOpen(article.id)}
                 >
-                    {isOpen ? 'close' : 'open'}
+                    <LocalizedText>{isOpen ? 'close' : 'open'}</LocalizedText>
                 </button>
-                <button onClick = {this.handleDelete}>delete me</button>
+                <button onClick = {this.handleDelete}>
+                    <LocalizedText>delete me</LocalizedText>
+                </button>
                 <CSSTransition
                     transitionName = "article"
                     transitionEnterTimeout = {500}

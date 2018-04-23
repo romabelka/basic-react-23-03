@@ -31,7 +31,7 @@ export class ArticleList extends Component {
     }
 
     getArticles() {
-        const { articles, openItemId, toggleItem } = this.props
+        const { articles } = this.props
         return articles.map(article => (
             <li key = {article.id} className = "test--article-list__item">
                 <NavLink to = {`/articles/${article.id}`} activeStyle = {{ color: 'red' }}>{article.title}</NavLink>

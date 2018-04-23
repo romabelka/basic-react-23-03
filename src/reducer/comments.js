@@ -36,7 +36,8 @@ export default (state = new ReducerRecord(), action) => {
                 .mergeIn(['entities'], arrToMap(response.records, CommentRecord))
                 .setIn(['pagination', payload.page, 'ids'], response.records.map(comment => comment.id))
                 .setIn(['pagination', payload.page, 'loading'], false)
-    }
 
-    return state
+        default:
+            return state
+    }
 }

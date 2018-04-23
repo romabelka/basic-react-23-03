@@ -1,7 +1,7 @@
 import { Record } from 'immutable'
 import {
     DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS,
-    START, SUCCESS, FAIL
+    START, SUCCESS
 } from '../constants'
 import { arrToMap } from './utils'
 
@@ -41,7 +41,7 @@ export default (state = ReducerRecord(), action) => {
 
         case LOAD_ALL_ARTICLES + SUCCESS:
             return state
-                .set('entities', arrToMap(response, ArticleRecord))
+                .update('entities', entities => arrToMap(response, ArticleRecord).merge(entities))
                 .set('loading', false)
                 .set('loaded', true)
 
